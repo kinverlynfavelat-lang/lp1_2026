@@ -3,12 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Model;
- 
+
 /**
  *
  * @author kinve
  */
-public enum Rol {
-    ADMIN,
-    CLIENTE
+public class Producto {
+    
 }
