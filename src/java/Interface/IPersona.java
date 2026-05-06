@@ -14,6 +14,7 @@ import java.util.List;
  */
 public interface IPersona {
 
+    //definir metodos que vamos a utilizar
     public List<Persona> lista();
 
     public int insert(Persona p, Usuario u);
