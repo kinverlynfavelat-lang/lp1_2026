@@ -8,6 +8,11 @@ package Model;
  *
  * @author kinve
  */
-public class EstadoPedido {
+public enum EstadoPedido {
+    PENDIENTE,
+    PROCESADO,
+    ENVIADO,
+    ENTREGADO,
+    CANCELADO
     
 }

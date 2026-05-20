@@ -11,14 +11,14 @@ import java.util.List;
 
 /**
  *
- * @author James Rios
+ * @author kinve
  */
 public class TestProducto {
 
     public static IProducto dao = new ProductoDaoImpl();
 
     public static void main(String[] args) {
-        TestProducto tP = new TestProducto();
+        TestProducto tP = new TestProducto(); 
         //tP.listar();
         //tP.agregar();
         //tP.actualizar();
