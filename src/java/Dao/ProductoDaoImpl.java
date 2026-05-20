@@ -33,8 +33,8 @@ public class ProductoDaoImpl implements IProducto {
 
             lista = new ArrayList<>();
 //al parecer esta linea de codigo no sirve de nada           
- //           if (cn == null || cn.isClosed()) {
- //               System.out.println("La conexion es nula o esta cerrada");
+            //           if (cn == null || cn.isClosed()) {
+            //               System.out.println("La conexion es nula o esta cerrada");
 //            }
             cn = ConexionSingleton.getConnection();
             st = cn.prepareStatement(query);
@@ -49,7 +49,6 @@ public class ProductoDaoImpl implements IProducto {
                 lista.add(pr);
 
             }
-            
 
         } catch (Exception e) {
             System.out.println("Error al listar el producto" + e.getMessage());
@@ -104,6 +103,7 @@ public class ProductoDaoImpl implements IProducto {
             }
 
             flag = false;
+            System.out.println("No se pudo insertar el producto");
 
         } finally {
 
@@ -117,7 +117,7 @@ public class ProductoDaoImpl implements IProducto {
         }
 
         return flag;
-        }
+    }
 
     @Override
     public boolean update(Productos p) {
@@ -127,7 +127,7 @@ public class ProductoDaoImpl implements IProducto {
 
         try {
 
-            query = "UPDATE productos SET nombre=?, descripcion=?, precio=?, stock=? "
+            query = "UPDATE productos SET nombre=?, descripcion=?, precio=?, stock=?, imagen=? "
                     + "WHERE id_producto=?";
 
             cn = ConexionSingleton.getConnection();
@@ -138,7 +138,8 @@ public class ProductoDaoImpl implements IProducto {
             st.setString(2, p.getDescripcion());
             st.setDouble(3, p.getPrecio());
             st.setInt(4, p.getStock());
-            st.setInt(5, p.getId_producto());
+            st.setString(5, p.getImagen());
+            st.setInt(6, p.getId_producto());
 
             st.executeUpdate();
 
@@ -154,6 +155,7 @@ public class ProductoDaoImpl implements IProducto {
             }
 
             flag = false;
+            System.out.println("No se pudo actualizar el producto");
 
         } finally {
 
@@ -167,7 +169,7 @@ public class ProductoDaoImpl implements IProducto {
         }
 
         return flag;
-    
+
     }
 
     @Override
@@ -186,18 +188,15 @@ public class ProductoDaoImpl implements IProducto {
             st = cn.prepareStatement(query);
 
             st.setInt(1, id);
-
             rs = st.executeQuery();
-
-            if (rs.next()) {
-
+            while (rs.next()) {
                 pr = new Productos();
-
                 pr.setId_producto(rs.getInt("id_producto"));
                 pr.setNombre(rs.getString("nombre"));
                 pr.setDescripcion(rs.getString("descripcion"));
                 pr.setPrecio(rs.getDouble("precio"));
                 pr.setStock(rs.getInt("stock"));
+                pr.setImagen(rs.getString("imagen"));
 
             }
 
@@ -235,11 +234,8 @@ public class ProductoDaoImpl implements IProducto {
             query = "DELETE FROM productos WHERE id_producto=?";
 
             cn = ConexionSingleton.getConnection();
-
             st = cn.prepareStatement(query);
-
             st.setInt(1, id);
-
             st.executeUpdate();
 
             flag = true;
@@ -271,7 +267,7 @@ public class ProductoDaoImpl implements IProducto {
 
     @Override
     public boolean updateStock(int id, int stock) {
-         boolean flag = false;
+        boolean flag = false;
         PreparedStatement st;
         String query = null;
 
@@ -280,9 +276,7 @@ public class ProductoDaoImpl implements IProducto {
             query = "UPDATE productos SET stock=? WHERE id_producto=?";
 
             cn = ConexionSingleton.getConnection();
-
             st = cn.prepareStatement(query);
-
             st.setInt(1, stock);
             st.setInt(2, id);
 
@@ -313,7 +307,7 @@ public class ProductoDaoImpl implements IProducto {
         }
 
         return flag;
-    
+
     }
 
 }
